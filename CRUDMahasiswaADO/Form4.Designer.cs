@@ -1,6 +1,6 @@
 ﻿namespace CRUDMahasiswaADO
 {
-    partial class DataMahasiswa
+    partial class Form4
     {
         /// <summary>
         /// Required designer variable.
@@ -78,6 +78,7 @@
             this.btnLoad.TabIndex = 3;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = false;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnReset
             // 
@@ -88,6 +89,7 @@
             this.btnReset.TabIndex = 4;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // comboBox1
             // 
@@ -96,6 +98,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
             // 
             // chart1
             // 
@@ -122,6 +125,7 @@
             this.btnDataMhs.Text = "Data Mahasiswa";
             this.btnDataMhs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDataMhs.UseVisualStyleBackColor = true;
+            this.btnDataMhs.Click += new System.EventHandler(this.btnDataMhs_Click);
             // 
             // Form4
             // 
@@ -137,11 +141,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form4";
-            this.Text = "Form4";
+            this.Text = "Dashboard";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

@@ -69,12 +69,17 @@
             this.btnTestInjection = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnRekapData = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnUpload = new System.Windows.Forms.Button();
+            this.btnImpExcel = new System.Windows.Forms.Button();
+            this.btnImpDb = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dBAkademikADODataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -158,9 +163,9 @@
             this.cmbJK.Items.AddRange(new object[] {
             "L ",
             "P"});
-            this.cmbJK.Location = new System.Drawing.Point(126, 126);
+            this.cmbJK.Location = new System.Drawing.Point(126, 217);
             this.cmbJK.Name = "cmbJK";
-            this.cmbJK.Size = new System.Drawing.Size(97, 24);
+            this.cmbJK.Size = new System.Drawing.Size(213, 24);
             this.cmbJK.TabIndex = 7;
             this.cmbJK.SelectedIndexChanged += new System.EventHandler(this.cmbJK_SelectedIndexChanged);
             // 
@@ -200,7 +205,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(409, 61);
+            this.btnConnect.Location = new System.Drawing.Point(591, 71);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(131, 23);
             this.btnConnect.TabIndex = 12;
@@ -210,7 +215,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(409, 96);
+            this.btnLoad.Location = new System.Drawing.Point(591, 106);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(131, 23);
             this.btnLoad.TabIndex = 13;
@@ -220,7 +225,7 @@
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(409, 130);
+            this.btnInsert.Location = new System.Drawing.Point(591, 140);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(131, 23);
             this.btnInsert.TabIndex = 14;
@@ -230,7 +235,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(409, 163);
+            this.btnUpdate.Location = new System.Drawing.Point(591, 173);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(131, 23);
             this.btnUpdate.TabIndex = 15;
@@ -240,7 +245,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(409, 193);
+            this.btnDelete.Location = new System.Drawing.Point(591, 203);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(131, 23);
             this.btnDelete.TabIndex = 16;
@@ -251,11 +256,11 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(33, 288);
+            this.dataGridView1.Location = new System.Drawing.Point(33, 367);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(734, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(841, 150);
             this.dataGridView1.TabIndex = 17;
             // 
             // mahasiswaTableAdapter
@@ -288,7 +293,7 @@
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(800, 27);
+            this.bindingNavigator1.Size = new System.Drawing.Size(916, 27);
             this.bindingNavigator1.TabIndex = 18;
             this.bindingNavigator1.Text = "bindingNavigator1";
             this.bindingNavigator1.RefreshItems += new System.EventHandler(this.bindingNavigator1_RefreshItems_1);
@@ -381,7 +386,7 @@
             // 
             // btnHitungTotal
             // 
-            this.btnHitungTotal.Location = new System.Drawing.Point(409, 222);
+            this.btnHitungTotal.Location = new System.Drawing.Point(591, 232);
             this.btnHitungTotal.Name = "btnHitungTotal";
             this.btnHitungTotal.Size = new System.Drawing.Size(131, 22);
             this.btnHitungTotal.TabIndex = 20;
@@ -392,7 +397,7 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(541, 266);
+            this.lblTotal.Location = new System.Drawing.Point(774, 348);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(44, 16);
             this.lblTotal.TabIndex = 21;
@@ -400,7 +405,7 @@
             // 
             // btnTestInjection
             // 
-            this.btnTestInjection.Location = new System.Drawing.Point(561, 61);
+            this.btnTestInjection.Location = new System.Drawing.Point(743, 71);
             this.btnTestInjection.Name = "btnTestInjection";
             this.btnTestInjection.Size = new System.Drawing.Size(120, 23);
             this.btnTestInjection.TabIndex = 22;
@@ -419,7 +424,7 @@
             // 
             // btnRekapData
             // 
-            this.btnRekapData.Location = new System.Drawing.Point(561, 96);
+            this.btnRekapData.Location = new System.Drawing.Point(743, 106);
             this.btnRekapData.Name = "btnRekapData";
             this.btnRekapData.Size = new System.Drawing.Size(120, 23);
             this.btnRekapData.TabIndex = 24;
@@ -427,11 +432,53 @@
             this.btnRekapData.UseVisualStyleBackColor = true;
             this.btnRekapData.Click += new System.EventHandler(this.btnRekapData_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(424, 173);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(116, 142);
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(424, 321);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(116, 23);
+            this.btnUpload.TabIndex = 26;
+            this.btnUpload.Text = "Upload Gambar";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnImpExcel
+            // 
+            this.btnImpExcel.Location = new System.Drawing.Point(743, 140);
+            this.btnImpExcel.Name = "btnImpExcel";
+            this.btnImpExcel.Size = new System.Drawing.Size(120, 40);
+            this.btnImpExcel.TabIndex = 27;
+            this.btnImpExcel.Text = "Import From Rxcel";
+            this.btnImpExcel.UseVisualStyleBackColor = true;
+            this.btnImpExcel.Click += new System.EventHandler(this.btnImpExcel_Click);
+            // 
+            // btnImpDb
+            // 
+            this.btnImpDb.Location = new System.Drawing.Point(743, 190);
+            this.btnImpDb.Name = "btnImpDb";
+            this.btnImpDb.Size = new System.Drawing.Size(120, 51);
+            this.btnImpDb.TabIndex = 28;
+            this.btnImpDb.Text = "Import To Database";
+            this.btnImpDb.UseVisualStyleBackColor = true;
+            this.btnImpDb.Click += new System.EventHandler(this.btnImpDb_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(916, 541);
+            this.Controls.Add(this.btnImpDb);
+            this.Controls.Add(this.btnImpExcel);
+            this.Controls.Add(this.btnUpload);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnRekapData);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnTestInjection);
@@ -466,6 +513,7 @@
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -512,6 +560,10 @@
         private System.Windows.Forms.Button btnTestInjection;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnRekapData;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.Button btnImpExcel;
+        private System.Windows.Forms.Button btnImpDb;
     }
 }
 

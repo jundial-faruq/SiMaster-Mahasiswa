@@ -2,30 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace CRUDMahasiswaADO
 {
     public partial class Form3 : Form
     {
-        private static string connectionString =
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBAkademikADO;Integrated Security=True";
-
-        private SqlConnection conn;
-
+        DAL dbLogic = new DAL();
         private string prodi;
         private DateTime tahunMasuk;
 
         public Form3(string prodi, DateTime tahunMasuk)
         {
             InitializeComponent();
-
             this.prodi = prodi;
             this.tahunMasuk = tahunMasuk;
-
-            conn = new SqlConnection(connectionString);
-
             this.Load += Form3_Load;
         }
 
@@ -33,32 +24,19 @@ namespace CRUDMahasiswaADO
         {
             try
             {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand("sp_Report", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@inProdi", prodi);
-                cmd.Parameters.AddWithValue("@inTglMsuk", tahunMasuk.Year.ToString());
-
-                SqlDataReader dr = cmd.ExecuteReader();
+                DataTable dtMahasiswa = dbLogic.getDataRekap(prodi, tahunMasuk);
 
                 List<Data> listMahasiswa = new List<Data>();
-
-                while (dr.Read())
+                foreach (DataRow row in dtMahasiswa.Rows)
                 {
                     Data data = new Data();
-
-                    data.Nama = dr["Nama"].ToString();
-                    data.JenisKelamin = dr["JenisKelamin"].ToString();
-                    data.Alamat = dr["Alamat"].ToString();
-                    data.NamaProdi = dr["NamaProdi"].ToString();
-                    data.TanggalDaftar = Convert.ToDateTime(dr["TanggalDaftar"]);
-
+                    data.Nama = row["Nama"].ToString();
+                    data.JenisKelamin = row["JenisKelamin"].ToString();
+                    data.Alamat = row["Alamat"].ToString();
+                    data.NamaProdi = row["NamaProdi"].ToString();
+                    data.TanggalDaftar = Convert.ToDateTime(row["TanggalDaftar"]);
                     listMahasiswa.Add(data);
                 }
-
-                dr.Close();
 
                 // CEK JUMLAH DATA
                 MessageBox.Show(
@@ -68,9 +46,7 @@ namespace CRUDMahasiswaADO
                     MessageBoxIcon.Information);
 
                 ListMahasiswa rpt = new ListMahasiswa();
-
                 rpt.SetDataSource(listMahasiswa);
-
                 crystalReportViewer1.ReportSource = rpt;
                 crystalReportViewer1.RefreshReport();
             }
@@ -81,11 +57,6 @@ namespace CRUDMahasiswaADO
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                    conn.Close();
             }
         }
     }

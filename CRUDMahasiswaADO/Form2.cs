@@ -1,26 +1,18 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace CRUDMahasiswaADO
 {
     public partial class Form2 : Form
     {
-        private static string connectionString =
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBAkademikADO;Integrated Security=True";
-
-        private SqlConnection conn;
-        private SqlDataAdapter da;
+        DAL dbLogic = new DAL();
         private DataTable dtMahasiswa;
         private DataTable dtProdi;
 
         public Form2()
         {
             InitializeComponent();
-
-            conn = new SqlConnection(connectionString);
-
             this.Load += Form2_Load;
             btnLoad.Click += btnLoad_Click;
             btnCetak.Click += btnCetak_Click;
@@ -31,9 +23,7 @@ namespace CRUDMahasiswaADO
             dtpTahunMasuk.Format = DateTimePickerFormat.Custom;
             dtpTahunMasuk.CustomFormat = "yyyy";
             dtpTahunMasuk.ShowUpDown = true;
-
             btnCetak.Enabled = false;
-
             LoadProdi();
         }
 
@@ -41,16 +31,7 @@ namespace CRUDMahasiswaADO
         {
             try
             {
-                conn.Open();
-
-                SqlCommand cmd =
-                    new SqlCommand("SELECT NamaProdi FROM ProgramStudi", conn);
-
-                dtProdi = new DataTable();
-
-                da = new SqlDataAdapter(cmd);
-                da.Fill(dtProdi);
-
+                dtProdi = dbLogic.getProdi();
                 cboProdi.DataSource = dtProdi;
                 cboProdi.DisplayMember = "NamaProdi";
                 cboProdi.ValueMember = "NamaProdi";
@@ -59,47 +40,22 @@ namespace CRUDMahasiswaADO
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                conn.Close();
-            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
             try
             {
-                conn.Open();
-
-                SqlCommand cmd =
-                    new SqlCommand("sp_Report", conn);
-
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue(
-                    "@inProdi",
-                    cboProdi.SelectedValue.ToString());
-
-                cmd.Parameters.AddWithValue(
-                    "@inTglMsuk",
-                    dtpTahunMasuk.Value.Year.ToString());
-
-                dtMahasiswa = new DataTable();
-
-                da = new SqlDataAdapter(cmd);
-                da.Fill(dtMahasiswa);
+                dtMahasiswa = dbLogic.getDataRekap(
+                    cboProdi.SelectedValue.ToString(),
+                    dtpTahunMasuk.Value);
 
                 dgvMahasiswa.DataSource = dtMahasiswa;
-
                 btnCetak.Enabled = dtMahasiswa.Rows.Count > 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -114,7 +70,6 @@ namespace CRUDMahasiswaADO
             Form3 frm = new Form3(
                 cboProdi.SelectedValue.ToString(),
                 dtpTahunMasuk.Value);
-
             frm.Show();
             this.Hide();
         }
