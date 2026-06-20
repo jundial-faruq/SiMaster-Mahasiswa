@@ -1,6 +1,6 @@
 ﻿namespace CRUDMahasiswaADO
 {
-    partial class Form4
+    partial class DataMahasiswa
     {
         /// <summary>
         /// Required designer variable.

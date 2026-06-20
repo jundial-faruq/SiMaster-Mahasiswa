@@ -1,27 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CRUDMahasiswaADO
 {
-    public partial class DataMahasiswa : Form
+    public class DAL
     {
-        // ── LANGKAH 14a: Deklarasi DAL (taruh di atas, sebelum constructor) ──
-        DAL dbLogic = new DAL()
-
+        public static string GetLoacalIPAddress()
         {
-            InitializeComponent();
+            string localIP = string.Empty;
+            try
+            {
+                var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        localIP = ip.ToString();
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Error getting local IP address: " + ex.Message);
+            }
+            return localIP;
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public static string GetConnectionString()
         {
-
+            string connectionString = $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBAkademikADO;Integrated Security=True";
+            return connectionString;
         }
+
+        SqlConnection conn = new SqlConnection(GetConnectionString());
+        SqlDataAdapter da;
+        DataTable dtMahasiswa;
+        DataTable dtProdi;
     }
 }
