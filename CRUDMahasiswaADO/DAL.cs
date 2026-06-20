@@ -50,7 +50,7 @@ public class DAL
         SqlCommand cmd = new SqlCommand("sp_CountMahasiswa", conn);
         cmd.CommandType = CommandType.StoredProcedure;
 
-        SqlParameter outputParam = new SqlParameter("@pCount", SqlDbType.Int);
+        SqlParameter outputParam = new SqlParameter("@Total", SqlDbType.Int);
         outputParam.Direction = ParameterDirection.Output;
 
         cmd.Parameters.Add(outputParam);
