@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace CRUDMahasiswaADO
 {
-    public partial class Form4 : Form
+    public partial class DataMahasiswa : Form
     {
-        public Form4()
+        // ── LANGKAH 14a: Deklarasi DAL (taruh di atas, sebelum constructor) ──
+        DAL dbLogic = new DAL()
+
         {
             InitializeComponent();
         }
