@@ -67,7 +67,6 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.btnTestInjection = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnRekapData = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnUpload = new System.Windows.Forms.Button();
@@ -160,7 +159,7 @@
             this.cmbJK.Items.AddRange(new object[] {
             "L ",
             "P"});
-            this.cmbJK.Location = new System.Drawing.Point(126, 217);
+            this.cmbJK.Location = new System.Drawing.Point(126, 128);
             this.cmbJK.Name = "cmbJK";
             this.cmbJK.Size = new System.Drawing.Size(213, 24);
             this.cmbJK.TabIndex = 7;
@@ -175,7 +174,7 @@
             // 
             // txtAlamat
             // 
-            this.txtAlamat.Location = new System.Drawing.Point(126, 190);
+            this.txtAlamat.Location = new System.Drawing.Point(126, 186);
             this.txtAlamat.Multiline = true;
             this.txtAlamat.Name = "txtAlamat";
             this.txtAlamat.Size = new System.Drawing.Size(229, 64);
@@ -287,7 +286,7 @@
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(916, 27);
+            this.bindingNavigator1.Size = new System.Drawing.Size(916, 31);
             this.bindingNavigator1.TabIndex = 18;
             this.bindingNavigator1.Text = "bindingNavigator1";
             this.bindingNavigator1.RefreshItems += new System.EventHandler(this.bindingNavigator1_RefreshItems_1);
@@ -298,7 +297,7 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 24);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 28);
             this.bindingNavigatorAddNewItem.Text = "Add new";
             // 
             // bindingNavigatorCountItem
@@ -407,15 +406,6 @@
             this.btnTestInjection.UseVisualStyleBackColor = true;
             this.btnTestInjection.Click += new System.EventHandler(this.btnTestInjection_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // btnRekapData
             // 
             this.btnRekapData.Location = new System.Drawing.Point(743, 106);
@@ -448,7 +438,7 @@
             // 
             this.btnImpExcel.Location = new System.Drawing.Point(743, 140);
             this.btnImpExcel.Name = "btnImpExcel";
-            this.btnImpExcel.Size = new System.Drawing.Size(120, 40);
+            this.btnImpExcel.Size = new System.Drawing.Size(120, 53);
             this.btnImpExcel.TabIndex = 27;
             this.btnImpExcel.Text = "Import From Rxcel";
             this.btnImpExcel.UseVisualStyleBackColor = true;
@@ -456,7 +446,7 @@
             // 
             // btnImpDb
             // 
-            this.btnImpDb.Location = new System.Drawing.Point(743, 190);
+            this.btnImpDb.Location = new System.Drawing.Point(743, 199);
             this.btnImpDb.Name = "btnImpDb";
             this.btnImpDb.Size = new System.Drawing.Size(120, 51);
             this.btnImpDb.TabIndex = 28;
@@ -474,7 +464,6 @@
             this.Controls.Add(this.btnUpload);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnRekapData);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnTestInjection);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.btnHitungTotal);
@@ -552,7 +541,6 @@
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.Button btnTestInjection;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnRekapData;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnUpload;

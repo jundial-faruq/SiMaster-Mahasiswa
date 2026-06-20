@@ -113,13 +113,11 @@ namespace CRUDMahasiswaADO
                         return ms.ToArray();
                     }
                 }
-
                 byte[] imgBytes = ConvertImageToBytes(pictureBox1);
 
                 dbLogic.InsertMhs(txtNIM.Text, txtNama.Text, txtAlamat.Text,
                                   cmbJK.Text, dtpTanggalLahir.Value.Date,
                                   txtKodeProdi.Text, imgBytes);
-
                 MessageBox.Show("Data berhasil ditambahkan");
                 ClearForm();
                 LoadData();
@@ -252,7 +250,19 @@ namespace CRUDMahasiswaADO
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                pictureBox1.Image = Image.FromFile(ofd.FileName);
+                // Simpan referensi gambar lama supaya bisa di-dispose setelah diganti
+                Image oldImage = pictureBox1.Image;
+
+                // Baca file lewat FileStream lalu COPY ke Bitmap baru,
+                // supaya tidak tergantung pada stream/file setelah blok using selesai
+                // (mencegah file terkunci & mencegah OutOfMemoryException di kemudian hari)
+                using (var fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+                using (Image temp = Image.FromStream(fs))
+                {
+                    pictureBox1.Image = new Bitmap(temp);
+                }
+
+                oldImage?.Dispose();
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             }
         }
@@ -382,15 +392,24 @@ namespace CRUDMahasiswaADO
                     row.Cells["Foto"].Value != null &&
                     row.Cells["Foto"].Value != DBNull.Value)
                 {
+                    Image oldImage = pictureBox1.Image;
+
                     byte[] imgBytes = (byte[])row.Cells["Foto"].Value;
                     using (MemoryStream ms = new MemoryStream(imgBytes))
+                    using (Image temp = Image.FromStream(ms))
                     {
-                        pictureBox1.Image = Image.FromStream(ms);
-                        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                        // COPY gambar ke Bitmap baru supaya tidak tergantung pada
+                        // MemoryStream yang akan di-dispose setelah blok using selesai
+                        // (ini yang menyebabkan OutOfMemoryException sebelumnya)
+                        pictureBox1.Image = new Bitmap(temp);
                     }
+
+                    oldImage?.Dispose();
+                    pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
                 else
                 {
+                    pictureBox1.Image?.Dispose();
                     pictureBox1.Image = null;
                 }
             }

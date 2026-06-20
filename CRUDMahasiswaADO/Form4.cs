@@ -82,7 +82,7 @@ namespace CRUDMahasiswaADO
                     foreach (DataRow row in dt.Rows)
                     {
                         string prodi = row["NamaProdi"].ToString();
-                        int jumlah = Convert.ToInt32((long)row["JmlhMhs"]);
+                        int jumlah = Convert.ToInt32(row["JmlhMhs"]); // ✅ fix
                         s.Points.AddXY(prodi, jumlah);
                     }
 
@@ -99,7 +99,7 @@ namespace CRUDMahasiswaADO
                     foreach (DataRow row in dt.Rows)
                     {
                         string prodi = row["NamaProdi"].ToString();
-                        int jumlah = Convert.ToInt32((long)row["JmlhMhs"]);
+                        int jumlah = Convert.ToInt32(row["JmlhMhs"]); // ✅ fix
                         s.Points.AddXY(prodi, jumlah);
                     }
 
@@ -156,7 +156,7 @@ namespace CRUDMahasiswaADO
         // ── EVENT: Button Data Mahasiswa ──────────────────────────────────
         private void btnDataMhs_Click(object sender, EventArgs e)
         {
-            Form1 frm1 = new Form1();   // ✅
+            Form1 frm1 = new Form1();
             frm1.Show();
             this.Hide();
         }

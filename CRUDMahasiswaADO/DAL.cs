@@ -30,7 +30,7 @@ public class DAL
 
     public static string GetConnectionString()
     {
-        string connectionString = $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBAkademikADO;Integrated Security=True";
+        string connectionString = $"Data Source=LAPTOP-E57EUBED,1433;Initial Catalog=DBAkademikADO;User ID=sa;Password=12345;";
         return connectionString;
     }
 
@@ -225,7 +225,7 @@ public class DAL
             conn.Open();
         }
 
-        SqlCommand cmd = new SqlCommand("select namaprodi from prodi", conn);
+        SqlCommand cmd = new SqlCommand("select namaprodi from ProgamStudi", conn);
         cmd.CommandType = CommandType.Text;
         dtProdi = new DataTable();
         da = new SqlDataAdapter(cmd);
