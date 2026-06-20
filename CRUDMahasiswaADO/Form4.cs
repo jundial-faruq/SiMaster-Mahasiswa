@@ -38,5 +38,25 @@ namespace CRUDMahasiswaADO
         SqlDataAdapter da;
         DataTable dtMahasiswa;
         DataTable dtProdi;
+
+        public int CountMhs()
+        {
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("sp_CountMahasiswa", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlParameter outputParam = new SqlParameter("@pCount", SqlDbType.Int);
+            outputParam.Direction = ParameterDirection.Output;
+
+            cmd.Parameters.Add(outputParam);
+            cmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(outputParam.Value);
+        }
     }
+
 }
