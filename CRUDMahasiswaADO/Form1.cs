@@ -27,7 +27,7 @@ namespace CRUDMahasiswaADO
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(DAL.GetConnectionString()))  // ← ganti dbLogic jadi DAL
+                using (SqlConnection conn = new SqlConnection(DAL.GetConnectionString()))
                 {
                     conn.Open();
                     MessageBox.Show("Koneksi berhasil");
@@ -244,7 +244,7 @@ namespace CRUDMahasiswaADO
             }
         }
 
-        // ── UPLOAD GAMBAR (event sudah ter-wire ke button2_Click di Designer) ─
+        // ── UPLOAD GAMBAR (event ter-wire ke button2_Click di Designer) ────
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -376,7 +376,7 @@ namespace CRUDMahasiswaADO
                 cmbJK.Text = row.Cells["JenisKelamin"].Value?.ToString();
                 dtpTanggalLahir.Value = Convert.ToDateTime(row.Cells["TanggalLahir"].Value);
                 txtAlamat.Text = row.Cells["Alamat"].Value?.ToString();
-                txtKodeProdi.Text = row.Cells["KodeProdi"].Value?.ToString();
+                txtKodeProdi.Text = row.Cells["NamaProdi"].Value?.ToString();   // ← diperbaiki dari "KodeProdi"
 
                 if (dataGridView1.Columns.Contains("Foto") &&
                     row.Cells["Foto"].Value != null &&
@@ -412,7 +412,15 @@ namespace CRUDMahasiswaADO
         // ── SIMPAN LOG ───────────────────────────────────────────────────
         private void SimpanLog(string pesan)
         {
-            dbLogic.InsertLog(pesan);
+            try
+            {
+                dbLogic.InsertLog(pesan);
+            }
+            catch
+            {
+                // sengaja diabaikan: kalau sp_LogMessage belum ada / gagal,
+                // jangan sampai logging ikut nge-crash alur utama aplikasi
+            }
         }
 
         // ── FORM LOAD ────────────────────────────────────────────────────

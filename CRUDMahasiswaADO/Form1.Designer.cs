@@ -94,7 +94,6 @@
             // 
             // txtNIM
             // 
-            this.txtNIM.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "NIM", true));
             this.txtNIM.Location = new System.Drawing.Point(126, 59);
             this.txtNIM.Name = "txtNIM";
             this.txtNIM.Size = new System.Drawing.Size(168, 22);
@@ -121,7 +120,6 @@
             // 
             // txtNama
             // 
-            this.txtNama.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "Nama", true));
             this.txtNama.Location = new System.Drawing.Point(126, 94);
             this.txtNama.Name = "txtNama";
             this.txtNama.Size = new System.Drawing.Size(229, 22);
@@ -158,7 +156,6 @@
             // 
             this.cmbJK.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbJK.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "JenisKelamin", true));
             this.cmbJK.FormattingEnabled = true;
             this.cmbJK.Items.AddRange(new object[] {
             "L ",
@@ -171,7 +168,6 @@
             // 
             // dtpTanggalLahir
             // 
-            this.dtpTanggalLahir.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "TanggalLahir", true));
             this.dtpTanggalLahir.Location = new System.Drawing.Point(126, 158);
             this.dtpTanggalLahir.Name = "dtpTanggalLahir";
             this.dtpTanggalLahir.Size = new System.Drawing.Size(168, 22);
@@ -179,7 +175,6 @@
             // 
             // txtAlamat
             // 
-            this.txtAlamat.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "Alamat", true));
             this.txtAlamat.Location = new System.Drawing.Point(126, 190);
             this.txtAlamat.Multiline = true;
             this.txtAlamat.Name = "txtAlamat";
@@ -188,7 +183,6 @@
             // 
             // txtKodeProdi
             // 
-            this.txtKodeProdi.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource, "KodeProdi", true));
             this.txtKodeProdi.Location = new System.Drawing.Point(126, 260);
             this.txtKodeProdi.Name = "txtKodeProdi";
             this.txtKodeProdi.Size = new System.Drawing.Size(100, 22);
@@ -256,11 +250,11 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(33, 367);
+            this.dataGridView1.Location = new System.Drawing.Point(33, 306);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(841, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(841, 211);
             this.dataGridView1.TabIndex = 17;
             // 
             // mahasiswaTableAdapter
@@ -397,7 +391,7 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(774, 348);
+            this.lblTotal.Location = new System.Drawing.Point(790, 287);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(44, 16);
             this.lblTotal.TabIndex = 21;
@@ -434,7 +428,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(424, 173);
+            this.pictureBox1.Location = new System.Drawing.Point(421, 112);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(116, 142);
             this.pictureBox1.TabIndex = 25;
@@ -442,7 +436,7 @@
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(424, 321);
+            this.btnUpload.Location = new System.Drawing.Point(421, 260);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(116, 23);
             this.btnUpload.TabIndex = 26;
@@ -566,4 +560,3 @@
         private System.Windows.Forms.Button btnImpDb;
     }
 }
-
