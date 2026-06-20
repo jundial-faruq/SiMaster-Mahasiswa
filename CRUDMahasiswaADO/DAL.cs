@@ -1,0 +1,292 @@
+﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Net;
+
+public class DAL
+{
+    // ── CONNECTION ──────────────────────────────────────────────────────────
+    public static string GetLoacalIPAddress()
+    {
+        string localIP = string.Empty;
+        try
+        {
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    localIP = ip.ToString();
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Windows.Forms.MessageBox.Show("Error getting local IP address: " + ex.Message);
+        }
+        return localIP;
+    }
+
+    public static string GetConnectionString()
+    {
+        string connectionString = $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBAkademikADO;Integrated Security=True";
+        return connectionString;
+    }
+
+    SqlConnection conn = new SqlConnection(GetConnectionString());
+    SqlDataAdapter da;
+    DataTable dtMahasiswa;
+    DataTable dtProdi;
+
+    // ── COUNT ────────────────────────────────────────────────────────────────
+    public int CountMhs()
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_CountMahasiswa", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        SqlParameter outputParam = new SqlParameter("@pCount", SqlDbType.Int);
+        outputParam.Direction = ParameterDirection.Output;
+
+        cmd.Parameters.Add(outputParam);
+        cmd.ExecuteNonQuery();
+
+        return Convert.ToInt32(outputParam.Value);
+    }
+
+    // ── READ ─────────────────────────────────────────────────────────────────
+    public DataTable GetMhs()
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_GetMahasiswa", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        da = new SqlDataAdapter(cmd);
+        dtMahasiswa = new DataTable();
+        da.Fill(dtMahasiswa);
+
+        return dtMahasiswa;
+    }
+
+    public DataTable GetMhsByNim(string nim)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_GetMahasiswaByNIM", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@pNIM", nim);
+        da = new SqlDataAdapter(cmd);
+
+        dtMahasiswa = new DataTable();
+        da.Fill(dtMahasiswa);
+
+        return dtMahasiswa;
+    }
+
+    // ── INSERT ───────────────────────────────────────────────────────────────
+    public void InsertMhs(string nim, string nama, string alamat, string jenisKelamin,
+                          DateTime tanggalLahir, string kodeProdi, byte[] foto)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlTransaction trans = conn.BeginTransaction();
+        try
+        {
+            SqlCommand command = new SqlCommand("sp_InsertMahasiswa", conn, trans);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@pNIM", nim);
+            command.Parameters.AddWithValue("@pNama", nama);
+            command.Parameters.AddWithValue("@pAlamat", alamat);
+            command.Parameters.AddWithValue("@pTanggalLahir", tanggalLahir);
+            command.Parameters.AddWithValue("@pJenisKelamin", jenisKelamin);
+            command.Parameters.AddWithValue("@pKodeProdi", kodeProdi);
+            command.Parameters.AddWithValue("@pFoto", foto ?? (object)DBNull.Value);
+
+            command.ExecuteNonQuery();
+            trans.Commit();
+        }
+        catch (Exception ex)
+        {
+            trans.Rollback();
+            throw;
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
+
+    // ── UPDATE ───────────────────────────────────────────────────────────────
+    public void UpdateMhs(string nim, string nama, string alamat, string jenisKelamin,
+                          DateTime tanggalLahir, string kodeProdi, byte[] foto)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand command = new SqlCommand("sp_UpdateMahasiswa", conn);
+
+        command.Parameters.AddWithValue("@pNIM", nim);
+        command.Parameters.AddWithValue("@pNama", nama);
+        command.Parameters.AddWithValue("@pAlamat", alamat);
+        command.Parameters.AddWithValue("@pJenisKelamin", jenisKelamin);
+        command.Parameters.AddWithValue("@pTanggalLahir", tanggalLahir);
+        command.Parameters.AddWithValue("@pKodeProdi", kodeProdi);
+        command.Parameters.AddWithValue("@pFoto", foto ?? (object)DBNull.Value);
+
+        command.CommandType = CommandType.StoredProcedure;
+        command.ExecuteNonQuery();
+    }
+
+    // ── DELETE ───────────────────────────────────────────────────────────────
+    public void DeleteMhs(string nim)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_DeleteMahasiswa", conn);
+        cmd.Parameters.AddWithValue("@pNIM", nim);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.ExecuteNonQuery();
+    }
+
+    // ── RESET DATA ───────────────────────────────────────────────────────────
+    public void resetData()
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        string deleteQuery = "DELETE FROM mahasiswa;";
+        SqlCommand cmdDelete = new SqlCommand(deleteQuery, conn);
+        cmdDelete.ExecuteNonQuery();
+
+        string insertQuery = @"
+            INSERT INTO mahasiswa
+            SELECT * FROM mahasiswa_backup;";
+        SqlCommand cmdInsert = new SqlCommand(insertQuery, conn);
+        cmdInsert.ExecuteNonQuery();
+    }
+
+    // ── TEST INJECT ──────────────────────────────────────────────────────────
+    public void testInject(string nim)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        string query = "Update mahasiswa set nama = 'HACKED' where NIM = '" + nim + "'";
+        SqlCommand cmd = new SqlCommand(query, conn);
+        cmd.ExecuteNonQuery();
+    }
+
+    // ── LOG ──────────────────────────────────────────────────────────────────
+    public void InsertLog(string message)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_LogMessage", conn);
+        cmd.Parameters.AddWithValue("@pnt", message);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.ExecuteNonQuery();
+    }
+
+    // ── PRODI ────────────────────────────────────────────────────────────────
+    public DataTable getProdi()
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("select namaprodi from prodi", conn);
+        cmd.CommandType = CommandType.Text;
+        dtProdi = new DataTable();
+        da = new SqlDataAdapter(cmd);
+        da.Fill(dtProdi);
+
+        return dtProdi;
+    }
+
+    // ── REKAP ────────────────────────────────────────────────────────────────
+    public DataTable getDataRekap(string prodi, DateTime tanggalMasuk)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_Report", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@inProdi", prodi);
+        cmd.Parameters.AddWithValue("@inTglMsuk", tanggalMasuk.Year.ToString());
+
+        da = new SqlDataAdapter(cmd);
+        dtMahasiswa = new DataTable();
+        da.Fill(dtMahasiswa);
+
+        return dtMahasiswa;
+    }
+
+    // ── CHART ────────────────────────────────────────────────────────────────
+    public DataTable getAllDataChart()
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_DashBoard", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        da = new SqlDataAdapter(cmd);
+        dtMahasiswa = new DataTable();
+        da.Fill(dtMahasiswa);
+
+        return dtMahasiswa;
+    }
+
+    public DataTable getDataChartByTahun(DateTime thMasuk)
+    {
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+
+        SqlCommand cmd = new SqlCommand("sp_DashBoardByTahun", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@inTglMsuk", thMasuk.Year);
+
+        da = new SqlDataAdapter(cmd);
+        dtMahasiswa = new DataTable();
+        da.Fill(dtMahasiswa);
+
+        return dtMahasiswa;
+    }
+}
