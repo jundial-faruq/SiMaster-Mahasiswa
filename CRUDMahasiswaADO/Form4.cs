@@ -194,6 +194,35 @@ namespace CRUDMahasiswaADO
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.ExecuteNonQuery();
         }
+
+        public void InsertLog(string message)
+        {
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("sp_LogMessage", conn);
+            cmd.Parameters.AddWithValue("@pnt", message);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.ExecuteNonQuery();
+        }
+
+        public DataTable getProdi()
+        {
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("select namaprodi from prodi", conn);
+            cmd.CommandType = CommandType.Text;
+            dtProdi = new DataTable();
+            da = new SqlDataAdapter(cmd);
+            da.Fill(dtProdi);
+
+            return dtProdi;
+        }
     }
 
 }
